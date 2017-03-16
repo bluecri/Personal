@@ -5,7 +5,6 @@
 #include <queue>
 #include <algorithm>
 #include <functional>
-//#include <hash_map>
 
 #define PUZZLE_SIZE 3
 
@@ -13,7 +12,6 @@ using namespace std;
 
 int max_int(int a, int b);
 long myPow(long a, long n);
-//void arrInPuz(int* arr, puzzle * p);
 
 class puzzle {
 public:
@@ -56,11 +54,7 @@ public:
 		arr[zPosX][zPosY] = arr[zPosX][zPosY - 1];
 		arr[zPosX][zPosY - 1] = 0;
 
-		//myPow(10, PUZZLE_SIZE - zPosX - 1) * 10*(PUZZLE_SIZE - zPosY) = position 0 -> new
-		//myPow(10, PUZZLE_SIZE - zPosX - 1) * 10*(PUZZLE_SIZE - (zPosY-1)) = position new -> 0
-		//original int = arr[zPosX][zPosY]
-		//state = state + (arr[zPosX][zPosY] * myPow(10, PUZZLE_SIZE - zPosX - 1) * 10*(PUZZLE_SIZE - zPosY))
-		//	- (arr[zPosX][zPosY] * myPow(10, PUZZLE_SIZE - zPosX - 1) * 10 * (PUZZLE_SIZE - (zPosY-1)));
+		
 		int invX = PUZZLE_SIZE - zPosX - 1;
 		int invY = PUZZLE_SIZE - zPosY - 1;
 		state = state + (arr[zPosX][zPosY] * myPow(1000, invX) * myPow(10, invY))
@@ -79,11 +73,6 @@ public:
 		arr[zPosX][zPosY] = arr[zPosX][zPosY + 1];
 		arr[zPosX][zPosY + 1] = 0;
 
-		//myPow(10, PUZZLE_SIZE - zPosX - 1) * 10*(PUZZLE_SIZE - zPosY) = position 0 -> new
-		//myPow(10, PUZZLE_SIZE - zPosX - 1) * 10*(PUZZLE_SIZE - (zPosY-1)) = position new -> 0
-		//original int = arr[zPosX][zPosY]
-		//state = state + (arr[zPosX][zPosY] * myPow(10, PUZZLE_SIZE - zPosX - 1) * 10 * (PUZZLE_SIZE - zPosY))
-		//	- (arr[zPosX][zPosY] * myPow(10, PUZZLE_SIZE - zPosX - 1) * 10 * (PUZZLE_SIZE - (zPosY + 1)));
 		int invX = PUZZLE_SIZE - zPosX - 1;
 		int invY = PUZZLE_SIZE - zPosY - 1;
 		state = state + (arr[zPosX][zPosY] * myPow(1000, invX) * myPow(10, invY))
@@ -102,9 +91,7 @@ public:
 		arr[zPosX][zPosY] = arr[zPosX - 1][zPosY];
 		arr[zPosX - 1][zPosY] = 0;
 
-		//myPow(10, PUZZLE_SIZE - zPosX - 1) * 10*(PUZZLE_SIZE - zPosY) = position 0 -> new
-		//myPow(10, PUZZLE_SIZE - zPosX - 1) * 10*(PUZZLE_SIZE - (zPosY-1)) = position new -> 0
-		//original int = arr[zPosX][zPosY]
+		
 		int invX = PUZZLE_SIZE - zPosX - 1;
 		int invY = PUZZLE_SIZE - zPosY - 1;
 		state = state + (arr[zPosX][zPosY] * myPow(1000, invX) * myPow(10, invY))
@@ -124,11 +111,7 @@ public:
 		arr[zPosX][zPosY] = arr[zPosX + 1][zPosY];
 		arr[zPosX + 1][zPosY] = 0;
 
-		//myPow(10, PUZZLE_SIZE - zPosX - 1) * 10*(PUZZLE_SIZE - zPosY) = position 0 -> new
-		//myPow(10, PUZZLE_SIZE - zPosX - 1) * 10*(PUZZLE_SIZE - (zPosY-1)) = position new -> 0
-		//original int = arr[zPosX][zPosY]
-		//state = state + (arr[zPosX][zPosY] * myPow(10, PUZZLE_SIZE - zPosX - 1) * 10 * (PUZZLE_SIZE - zPosY))
-		//	- (arr[zPosX][zPosY] * myPow(10, PUZZLE_SIZE - (zPosX + 1) - 1) * 10 * (PUZZLE_SIZE - (zPosY)));
+	
 		int invX = PUZZLE_SIZE - zPosX - 1;
 		int invY = PUZZLE_SIZE - zPosY - 1;
 		state = state + (arr[zPosX][zPosY] * myPow(1000, invX) * myPow(10, invY))
@@ -151,7 +134,7 @@ struct for_min_heap {
 
 void DFS();
 void BFS();
-void STAR();
+void STAR(int(*calcCostFunc)(puzzle * inputP));
 
 
 //hash_map<int, int> pMap;
